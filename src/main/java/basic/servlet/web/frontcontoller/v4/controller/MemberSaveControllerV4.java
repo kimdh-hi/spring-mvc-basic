@@ -1,18 +1,17 @@
-package basic.servlet.web.frontcontoller.v3.controller;
+package basic.servlet.web.frontcontoller.v4.controller;
 
 import basic.servlet.domain.member.Member;
 import basic.servlet.domain.member.MemberRepository;
-import basic.servlet.web.frontcontoller.ModelView;
-import basic.servlet.web.frontcontoller.v3.ControllerV3;
+import basic.servlet.web.frontcontoller.v4.ControllerV4;
 
 import java.util.Map;
 
-public class MemberSaveControllerV3 implements ControllerV3 {
+public class MemberSaveControllerV4 implements ControllerV4 {
 
     private MemberRepository memberRepository = MemberRepository.getInstance();
 
     @Override
-    public ModelView process(Map<String, String> paramMap) {
+    public String process(Map<String, String> paramMap, Map<String, Object> model) {
 
         String username = paramMap.get("username");
         int age = Integer.parseInt(paramMap.get("age"));
@@ -21,8 +20,8 @@ public class MemberSaveControllerV3 implements ControllerV3 {
 
         memberRepository.save(member);
 
-        ModelView modelView = new ModelView("save-result");
-        modelView.getModel().put("member", member);
-        return modelView;
+        model.put("member", member);
+
+        return "save-result";
     }
 }
