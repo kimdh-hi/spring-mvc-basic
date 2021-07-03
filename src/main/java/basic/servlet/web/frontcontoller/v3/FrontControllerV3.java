@@ -39,9 +39,15 @@ public class FrontControllerV3 extends HttpServlet {
 
         ModelView modelView = controller.process(paramMap);
 
-        // ViewResolver
+        // ViewResolver (논리적 view이름을 물리적 view이름으로 변환)
+        MyView view = viewResolver(modelView);
+
+        view.render(modelView.getModel(), request, response);
+    }
+
+    private MyView viewResolver(ModelView modelView) {
         String viewName = modelView.getViewName();
         MyView view = new MyView("/WEB-INF/views/" + viewName + ".jsp");
-        view.render(modelView.getModel(), request, response);
+        return view;
     }
 }
