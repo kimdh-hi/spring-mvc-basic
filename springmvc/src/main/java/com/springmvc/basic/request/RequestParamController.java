@@ -12,6 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
+/**
+ * @RequestMapping => RequestMappingHandlerAdapter의 handler를 호출
+ */
+
 @Slf4j
 @Controller
 public class RequestParamController {
