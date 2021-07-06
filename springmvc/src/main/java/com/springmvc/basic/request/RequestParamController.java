@@ -33,7 +33,7 @@ public class RequestParamController {
     /**
      * @RequestParam 사용
      */
-    @ResponseBody // return 값을 body로 하여 응답
+    @ResponseBody
     @RequestMapping("/request-param-v2")
     public String requestParamV2(@RequestParam("username") String username, @RequestParam("age") int age) {
         log.info("username = {}", username);

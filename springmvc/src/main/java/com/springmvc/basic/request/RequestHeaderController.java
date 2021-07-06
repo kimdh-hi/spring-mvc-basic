@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Locale;
@@ -18,8 +19,6 @@ public class RequestHeaderController {
 
     @GetMapping(value = "/headers")
     public String headers(
-            HttpServletRequest request,
-            HttpServletResponse response,
             HttpMethod httpMethod,
             Locale locale, // 언어정보
             @RequestHeader MultiValueMap<String, String> headerMap, // 모든 헤더 정보
@@ -27,14 +26,19 @@ public class RequestHeaderController {
             @RequestHeader("host") String host, // 지정 헤더 정보
             @CookieValue(value="myCookie", required = false) String cookie
             ) {
-        log.info("request={}", request);
-        log.info("response={}", response);
         log.info("httpMethod={}", httpMethod);
         log.info("locale={}", locale);
         log.info("headerMap={}", headerMap);
         log.info("header host={}", host);
         log.info("myCookie={}", cookie);
 
+        return "ok";
+    }
+
+    @GetMapping("/add-cookie")
+    public String addCookie(HttpServletRequest request, HttpServletResponse response) {
+        Cookie cookie = new Cookie("myCookie", "myCookieValue");
+        response.addCookie(cookie);
         return "ok";
     }
 }
