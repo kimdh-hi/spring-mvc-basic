@@ -1,5 +1,7 @@
 ## servlet부터 Spring MVC까지
 
+[참고 블로그](https://velog.io/@dhk22/series/Spring-MVC)
+
 ### Section 1
 - Servlet만을 이용한 요청 데이터 및 헤더 파싱 및 랜더링
 - JSP만을 이용한 요청 데이터 파싱 및 랜더링
