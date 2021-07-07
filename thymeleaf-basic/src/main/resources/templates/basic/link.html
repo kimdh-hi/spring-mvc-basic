@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>URL 링크</h1>
+<ul>
+  <!-- ()를 이용해 바인딩할 때 경로에 매핑되는 key값이 있다면 Path Variable방식으로 바인딩 -->
+  <!-- 경로에 매핑되는 key값이 없다면 '?' 이하로 Query parameter 방식으로 들어감-->
+  <li><a th:href="@{/hello}">basic url</a></li>
+  <!-- localhost:8080/hello?param1=data1&param2=data2-->
+  <li><a th:href="@{/hello(param1=${param1}, param2=${param2})}">hello query param</a></li>
+  <!-- localhost:8080/hello/data1/data2-->
+  <li><a th:href="@{/hello/{param1}/{param2}(param1=${param1}, param2=${param2})}">path variable</a></li>
+  <!-- localhost:8080/hello/data1?param2=data2-->
+  <li><a th:href="@{/hello/{param1}(param1=${param1}, param2=${param2})}">path variable + query parameter</a></li>
+</ul>
+</body>
+</html>

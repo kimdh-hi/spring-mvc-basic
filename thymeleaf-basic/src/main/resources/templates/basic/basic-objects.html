@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1>식 기본 객체 (Expression Basic Objects)</h1>
+<ul>
+  <li>request = <span th:text="${#request}"></span></li>
+  <li>response = <span th:text="${#response}"></span></li>
+  <li>session = <span th:text="${#session}"></span></li>
+  <li>servletContext = <span th:text="${#servletContext}"></span></li>
+  <li>locale = <span th:text="${#locale}"></span></li>
+</ul>
+
+<h1>편의 객체</h1>
+<ul>
+  <!-- Query Parameter에 직접 접근 (기본 객체인 ${#request}를 통해 접근해도 됨-->
+  <li>Request Parameter1 = <span th:text="${param.paramData}"></span></li>
+  <li>Request Parameter2 = <span th:text="${#request.getParameter('paramData')}"></span> </li>
+  <li>session = <span th:text="${session.sessionData}"></span></li>
+  <!-- 등록된 Spring Bean에 접근 (testBean이라는 Bean에 접근하여 test메서드를 실행)-->
+  <li>spring bean = <span th:text="${@testBean.test('hello')}"></span></li>
+</ul>
+
+</body>
+</html>

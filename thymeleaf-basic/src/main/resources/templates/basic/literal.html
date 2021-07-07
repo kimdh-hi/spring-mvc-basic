@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>리터럴</h1>
+<!-- Thymeleaf에서 리터럴을 사용하는 경우 반드시 ' '로 감싸줘야 한다.-->
+<!-- 중간에 공백이 없는 경우 ' '를 생략 가능하지만 그냥 감싸주거나 '| |' 리터럴 대체 표현식을 사용하자.-->
+<!-- th:text="hello world" 와 같이 공백을 포함한 문자 리터럴을 ' '로 감싸주지 않는다면 500에러를 뿜어냄 -->
+<li th:text="'hello world'"></li>
+<li th:text="'data : ' + ${data}"></li>
+<!-- 리터럴 대체 표현식 사용-->
+<li th:text="|data : ${data}|"></li>
+</body>
+</html>
