@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>페이지 소스보기로 insert와 replace 차이 확인</h1>
+<!-- th:insert -> 해당 태그 내로 삽입 (div태그 내로 삽입)-->
+<h2>fragment insert</h2>
+<div th:insert="~{template/fragment/footer :: copy}"></div>
+<!-- th:replace -> 해당 태그 대체 (div태그를 지우고 fragment를 랜더링)-->
+<h2>fragment replace</h2>
+<div th:replace="~{template/fragment/footer :: copy}"></div>
+
+<h2>fragment Parameter</h2>
+<div th:replace="~{template/fragment/footer :: copyParam('value1', 'value2')}"></div>
+
+</body>
+</html>

@@ -150,6 +150,16 @@ public class BasicController {
         return "basic/block";
     }
 
+    /**
+     * Thymeleaf에서 편하게 javascript를 사용하기 위한 inline 테스트
+     */
+    @GetMapping("/javascript")
+    public String javascript(Model model) {
+        model.addAttribute("user", new User("userA", 10));
+        addUsersToModel(model);
+        return "basic/javascript";
+    }
+
     void addUsersToModel(Model model) {
         List<User> list = new ArrayList<>();
         list.add(new User("user1", 1));

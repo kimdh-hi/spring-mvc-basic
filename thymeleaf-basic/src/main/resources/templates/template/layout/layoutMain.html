@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--
+  :: common_head(~{::title}, ~{::link})
+
+현재 HTML의 title태그와 link태그 자체를 매개변수로 넘기는 것이 핵심.
+        📌 태그 자체를 넘기는 것이 중요 !!
+-->
+<head th:replace="template/layout/base :: common_head(~{::title}, ~{::link})">
+        <title>Main Title</title>
+        <link rel="stylesheet" th:href="@{/css/custom.css}"/>
+</head>
+<body>
+<h1> 페이지 소스보기로 확인 </h1>
+</body>
+</html>

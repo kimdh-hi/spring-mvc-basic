@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!--
+title과 links에는 태그 자체가 담길 것임 따라서 th:replace로 해줘야 함
+-->
+<head th:fragment="common_head(title, links)">
+
+    <title th:replace="${title}">Title</title>
+
+    <link rel="stylesheet" th:href="@{/css/base.css}"/>
+    <link rel="shortcut icon" th:href="@{/inages/favicon.ico}"/>
+    <script th:src="@{/sh/scripts/base.js}"></script>
+
+  <!-- links 파라미터로 전달되는 태그들을 그대로 받아 대체 (replace)-->
+  <th:block th:replace="${links}"/>
+</head>
+
+</html>
