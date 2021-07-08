@@ -50,6 +50,8 @@ public class RequestBodyJsonController {
     @PostMapping("/request-body-json-v3")
     public String requestBodyJsonV3(@RequestBody String bodyString) throws JsonProcessingException {
 
+        log.info("ObjectMapper 이전 bodyString = {}", bodyString);
+
         UserDto userDto = objectMapper.readValue(bodyString, UserDto.class);
 
         log.info("username = {}", userDto.getUsername());
