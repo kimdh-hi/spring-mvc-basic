@@ -39,6 +39,7 @@ public class ResponseBodyController {
         userDto.setUsername("kim");
         userDto.setAge(26);
 
+
         return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
 
