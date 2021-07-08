@@ -18,21 +18,43 @@
         <h2>상품 등록 폼</h2>
     </div>
 
-    <form action="item.html" th:action method="post">
+    <!-- Controller에서 넘겨받은 빈 Item객체를 th:object 로 지정-->
+    <form action="item.html" th:object="${item}" th:action method="post">
         <div>
             <label for="itemName">상품명</label>
-            <input type="text" id="itemName" name="itemName" class="form-control" placeholder="이름을 입력하세요">
+            <!-- th:field="${item.itemName}" == th:field="*{itemName}" -->
+            <!-- id와, name을 itemName으로 치환, value도 전달된 object의 값으로 설정, 즉, id, name속성 모두 없어도 됨-->
+            <input type="text" id="itemName" th:field="*{itemName}" class="form-control" placeholder="이름을 입력하세요">
         </div>
         <div>
             <label for="price">가격</label>
-            <input type="text" id="price" name="price" class="form-control" placeholder="가격을 입력하세요">
+            <input type="text" id="price" th:field="*{price}" class="form-control" placeholder="가격을 입력하세요">
         </div>
         <div>
             <label for="quantity">수량</label>
-            <input type="text" id="quantity" name="quantity" class="form-control" placeholder="수량을 입력하세요">
+            <input type="text" id="quantity" th:field="*{quantity}" class="form-control" placeholder="수량을 입력하세요">
         </div>
 
+        <!-- checkbox 미체크 처리를 위해 hidden필드를 넣는 등의 불편함을 th:field=${}를 통해 해결-->
+        <!-- but, 방식은 같음 thymeleaf가 hidden필드를 대신 만들어주는 것 뿐.-->
         <hr class="my-4">
+        <div>판매 여부</div>
+        <div>
+            <div class="form-check">
+                <input type="checkbox" id="open" th:field="${item.open}" class="form-check-input">
+                <label for="open" class="form-check-label">판매 오픈</label>
+            </div>
+        </div>
+
+        <!-- multi checkbox -->
+        <div>
+            <div>등록 지역</div>
+            <div th:each="region : ${regions}" class="form-check form-check-inline">
+                <input type="checkbox" th:field="*{regions}" th:value="${region.key}" class="form-check-input">
+                <!-- th:for=${#idx.prev('regions') label의 id값을 동적으로 생성되는 input의 id값과 맞춰줌-->
+                <label th:for="${#ids.prev('regions')}" th:text="${region.value}" class="form-check-label">서울</label>
+            </div>
+        </div>
 
         <div class="row">
             <div class="col">
@@ -51,3 +73,21 @@
 </div> <!-- /container -->
 </body>
 </html>
+
+<!--
+CheckBox 문제 해결
+check box 체크시 "open=on" 이런식으로 서버로 전송되고, 서버는 스프링 타입 컨버터에 의해 on을 true로 변환한다.
+check box 미체크시 "open=false"를 기대하지만 "open=null"이 전송된다. checkbox의 값 자체를 보내지 않는 것이다.
+check box 미체크시 "open=false"가 전송되도록 언더스코어( _ )를 붙이는 트릭을 사용.
+-->
+<!--        <div>판매 여부</div> <div>-->
+<!--            <div class="form-check">-->
+<!--                <input type="checkbox" id="open" name="open" class="form-check-input">-->
+<!--                <input type="hidden" name="_open" value="on">-->
+<!--                <label for="open" class="form-check-label">판매 오픈</label>-->
+<!--                &lt;!&ndash;-->
+<!--                스프링은 "open=on"과 "_open=on"이 함께 넘어오면 _open은 무시하고 "open=on"만 사용하여 true로 변환한다.-->
+<!--                미체크되어 hidden필드인 "_open=true"만 전송될 시 스프링은 "open"이 체크되지 않은 것으로 인식한다. 따라서 false로 변환한다.-->
+<!--                &ndash;&gt;-->
+<!--            </div>-->
+<!--        </div>-->

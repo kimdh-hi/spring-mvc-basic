@@ -40,6 +40,25 @@
 
     <hr class="my-4">
 
+    <div>판매 여부</div>
+    <div>
+        <div class="form-check">
+            <!-- th:field이 지정한 값의 true, false에 따라 checked 속성을 추가해준다.-->
+            <input type="checkbox" id="open" th:field="${item.open}" class="form-check-input" disabled>
+            <label for="open" class="form-check-label">판매 오픈</label>
+        </div>
+    </div>
+
+    <!-- multi checkbox -->
+    <div>
+        <div>등록 지역</div>
+        <div th:each="region : ${regions}" class="form-check form-check-inline">
+            <input type="checkbox" th:field="${item.regions}" th:value="${region.key}" class="form-check-input" disabled>
+            <!-- th:for=${#idx.prev('regions') label의 id값을 동적으로 생성되는 input의 id값과 맞춰줌-->
+            <label th:for="${#ids.prev('regions')}" th:text="${region.value}" class="form-check-label">서울</label>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col">
             <button class="w-100 btn btn-primary btn-lg"
