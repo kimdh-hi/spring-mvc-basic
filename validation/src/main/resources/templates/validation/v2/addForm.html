@@ -28,10 +28,6 @@
             <input type="text" id="itemName" th:field="*{itemName}"
                    th:class="${errors?.containsKey('itemName')} ? 'form-control field-error' : 'form-control'"
                    class="form-control" placeholder="이름을 입력하세요">
-                   <!--
-                   ?. 문법: errors가 null이라면? 그 순간 NullPointerException이 발생할 것이다.
-                           ?를 써준다면 NullPointerException 대신 null을 반환
-                   -->
             <div th:if="${errors?.containsKey('itemName')}">
                 <p class="field-error" th:text="${errors['itemName']}"></p>
             </div>
@@ -64,7 +60,7 @@
             <div class="col">
                 <button class="w-100 btn btn-secondary btn-lg"
                         onclick="location.href='items.html'"
-                        th:onclick="|location.href='@{/validation/v1/items}'|"
+                        th:onclick="|location.href='@{/validation/v2/items}'|"
                         type="button" th:text="#{button.cancel}">취소</button>
             </div>
         </div>
