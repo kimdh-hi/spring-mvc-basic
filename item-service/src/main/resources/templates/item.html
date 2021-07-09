@@ -35,14 +35,14 @@
         <div class="col">
             <button
                     class="w-100 btn btn-primary btn-lg"
-                    th:onclick="|location.href='@{/basic/items/edit/{itemId}(itemId=${item.id})}'|"
+                    th:onclick="|location.href='@{/items/edit/{itemId}(itemId=${item.id})}'|"
                     type="button">상품 수정</button>
         </div>
         <div class="col">
             <button
                     class="w-100 btn btn-secondary btn-lg"
                     onclick="location.href='items.html'"
-                    th:onclick="|location.href='/basic/items'|"
+                    th:onclick="|location.href='/items'|"
                     type="button">목록으로</button>
         </div>
   </div>

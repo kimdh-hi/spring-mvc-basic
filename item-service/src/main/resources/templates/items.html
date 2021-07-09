@@ -15,7 +15,7 @@
                 <button
                         class="btn btn-primary float-end"
                         onclick="location.href='addForm.html'"
-                        th:onclick="|location.href='@{/basic/items/add}'|"
+                        th:onclick="|location.href='@{/items/add}'|"
                         type="button">
                     상품등록</button>
             </div>
@@ -35,10 +35,10 @@
             <tbody>
                 <tr th:each="item:${items}">
                     <td>
-                        <a th:href="@{/basic/items/{itemId}(itemId=${item.id})}" th:text="${item.id}"></a>
+                        <a th:href="@{/items/{itemId}(itemId=${item.id})}" th:text="${item.id}"></a>
                     </td>
                     <td>
-                        <a th:href="@{|/basic/items/${item.id}|}" th:text="${item.itemName}"></a>
+                        <a th:href="@{|/items/${item.id}|}" th:text="${item.itemName}"></a>
                     </td>
 
                     <td th:text="${item.price}"></td>
@@ -46,7 +46,7 @@
                     <td>
                         <button
                                 class="btn btn-danger btn-sm float-end"
-                                th:onclick="|location.href='@{/basic/items/delete/{itemId}(itemId=${item.id})}'|"
+                                th:onclick="|location.href='@{/items/delete/{itemId}(itemId=${item.id})}'|"
                         >삭제</button>
                     </td>
                 </tr>

@@ -15,7 +15,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/basic/items")
+@RequestMapping("/items")
 public class BasicItemController {
 
     private final ItemRepository itemRepository;
@@ -27,7 +27,7 @@ public class BasicItemController {
     public String itemList(Model model) {
         List<Item> findItems = itemRepository.findAll();
         model.addAttribute("items", findItems);
-        return "basic/items";
+        return "items";
     }
 
     /**
@@ -37,7 +37,7 @@ public class BasicItemController {
     public String itemDetail(@PathVariable Long itemId, Model model) {
         Item findItem = itemRepository.findById(itemId);
         model.addAttribute("item", findItem);
-        return "basic/item";
+        return "item";
     }
 
     /**
@@ -45,7 +45,7 @@ public class BasicItemController {
      */
     @GetMapping("/add")
     public String addForm() {
-        return "basic/addForm";
+        return "addForm";
     }
 
     /**
@@ -71,7 +71,7 @@ public class BasicItemController {
     public String addItemV1(@ModelAttribute("item") Item item, Model model) {
         Item savedItem = itemRepository.save(item);
         //model.addAttribute("item", savedItem); // @ModelAttribute가 model에 "item"의 이름으로 값을 담아줌
-        return "basic/item";
+        return "item";
     }
 
     /**
@@ -81,7 +81,7 @@ public class BasicItemController {
     public String addItemV2(Item item) {
         itemRepository.save(item);
 
-        return "redirect:/basic/items/" +  item.getId();
+        return "redirect:/items/" +  item.getId();
     }
 
     /**
@@ -92,7 +92,7 @@ public class BasicItemController {
         Item savedItem = itemRepository.save(item);
         redirectAttributes.addAttribute("itemId", savedItem.getId());
         redirectAttributes.addAttribute("success",true);
-        return "redirect:/basic/items/{itemId}"; // localhost:8080/basic/items/3?success=true
+        return "redirect:/items/{itemId}"; // localhost:8080/basic/items/3?success=true
     }
 
     /**
@@ -103,7 +103,7 @@ public class BasicItemController {
         Item findItem = itemRepository.findById(itemId);
         model.addAttribute("item", findItem);
 
-        return "basic/editForm";
+        return "editForm";
     }
 
     /**
@@ -113,7 +113,7 @@ public class BasicItemController {
     public String edit(@ModelAttribute("item") Item item, @PathVariable Long itemId) {
         itemRepository.update(itemId, item);
         Item editedItem = itemRepository.findById(itemId);
-        return "redirect:/basic/items/{itemId}";
+        return "redirect:/items/{itemId}";
     }
 
     /**
@@ -124,7 +124,7 @@ public class BasicItemController {
         log.warn("******** itemID = {} delete", itemId);
         itemRepository.deleteById(itemId);
 
-        return "redirect:/basic/items";
+        return "redirect:/items";
     }
 
     /**
