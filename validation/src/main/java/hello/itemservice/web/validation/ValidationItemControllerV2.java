@@ -10,6 +10,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -196,6 +197,9 @@ public class ValidationItemControllerV2 {
             BindingResult bindingResult,
             RedirectAttributes redirectAttributes, Model model) {
 
+        // 공백필드 검사와 reject를 함께 사용하는 ValidationUtiils
+        //ValidationUtils.rejectIfEmptyOrWhitespace(bindingResult, "itemName", "required");
+
         if (!StringUtils.hasText(item.getItemName())) {
             /**
              * field에 대해서는 rejectValue 메서드를 사용
@@ -207,11 +211,13 @@ public class ValidationItemControllerV2 {
         }
 
         if (item.getPrice() == null || item.getPrice() < 1000 || item.getPrice() > 1000000) {
-            bindingResult.rejectValue("price", "range", new Object[]{1000, 1000000}, null);
+            if (item.getPrice() instanceof Integer)
+                bindingResult.rejectValue("price", "range", new Object[]{1000, 1000000}, null);
         }
 
         if (item.getQuantity() == null || item.getQuantity() < 10 || item.getQuantity() > 9999) {
-            bindingResult.rejectValue("quantity", "max", new Object[]{9999}, null);
+            if (item.getPrice() instanceof Integer)
+                bindingResult.rejectValue("quantity", "max", new Object[]{9999}, null);
         }
 
         if (item.getPrice() != null && item.getQuantity() != null) {
