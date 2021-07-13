@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .field-error {
+            border-color: red;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<form th:action th:object="${item}">
+
+    <label for="itemName"/>
+    <input type="text" id="itemName" th:field="${itemName}" th:errorclass="itemName">
+    <div th:errors="${itemName}" class="field-error"></div>
+
+    <label for="price"/>
+    <input type="text" id="price" th:field="${price}" th:errorclass="price">
+    <div th:errors="${price}" class="field-error"></div>
+
+    <button type="submit">등록</button>
+</form>
+</body>
+</html>

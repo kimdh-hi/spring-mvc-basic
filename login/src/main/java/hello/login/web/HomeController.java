@@ -10,10 +10,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * 쿠키 보안 문제
@@ -46,16 +48,10 @@ public class HomeController {
         return "loginHome";
     }
 
-    //@PostMapping("/logout")
-    public String logoutV1(HttpServletResponse response) {
-        Cookie cookie = new Cookie("memberId", null);
-        cookie.setMaxAge(0);
-        response.addCookie(cookie);
-
-        return "redirect:/";
-    }
-
-    @GetMapping("/")
+    /**
+     * 직접 만든 세션 쿠키 적용
+     */
+    //@GetMapping("/")
     public String homeLoginV2(HttpServletRequest request, Model model){
 
         Member member = (Member)sessionManager.getSession(request);
@@ -65,11 +61,35 @@ public class HomeController {
         return "loginHome";
     }
 
-    @PostMapping("/logout")
-    public String logoutV2(HttpServletRequest request) {
-        sessionManager.expireCookie(request);
+    /**
+     * HttpSession 적용
+     */
+//    @GetMapping("/")
+    public String homeLoginV3(HttpServletRequest request, Model model){
 
-        return "redirect:/";
+        HttpSession session = request.getSession(false);
+        if (session == null) return "home";
+
+        Member member = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
+        if (member == null) return "home";
+
+        model.addAttribute("member", member);
+        return "loginHome";
+    }
+
+
+    /**
+     * @SessionAttribute 적용
+     */
+    @GetMapping("/")
+    public String homeLoginV3(
+            @SessionAttribute(name=SessionConst.LOGIN_MEMBER, required = false) Member member,
+            Model model) {
+
+        if (member == null) return "home";
+
+        model.addAttribute("member", member);
+        return "loginHome";
     }
 
 }
