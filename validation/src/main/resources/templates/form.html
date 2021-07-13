@@ -11,15 +11,17 @@
     </style>
 </head>
 <body>
-<form th:action th:object="${item}">
+<form th:action="test" th:object="${item}" method="post">
 
-    <label for="itemName"/>
-    <input type="text" id="itemName" th:field="${itemName}" th:errorclass="itemName">
-    <div th:errors="${itemName}" class="field-error"></div>
+    <label for="itemName">상품명</label>
+    <input type="text" id="itemName" th:field="*{itemName}" th:errorclass="itemName">
+    <div th:errors="*{itemName}" class="field-error"></div>
+    <br/>
 
-    <label for="price"/>
-    <input type="text" id="price" th:field="${price}" th:errorclass="price">
-    <div th:errors="${price}" class="field-error"></div>
+    <label for="price">가격</label>
+    <input type="text" id="price" th:field="*{price}" th:errorclass="price">
+    <div th:errors="*{price}" class="field-error"></div>
+    <br/>
 
     <button type="submit">등록</button>
 </form>

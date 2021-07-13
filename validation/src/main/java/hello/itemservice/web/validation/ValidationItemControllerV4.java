@@ -13,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -49,7 +50,7 @@ public class ValidationItemControllerV4 {
 
     @PostMapping("/add")
     public String addItem(
-            @Validated @ModelAttribute("item") ItemSaveForm item,
+            @Valid @ModelAttribute("item") ItemSaveForm item,
             BindingResult bindingResult,
             RedirectAttributes redirectAttributes, Model model) {
 

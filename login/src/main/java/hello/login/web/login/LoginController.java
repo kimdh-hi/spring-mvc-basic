@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -105,7 +106,7 @@ public class LoginController {
      *
      * 타임아웃 설정 (default: lastAccessedTime으로부터 30분)
      */
-    @PostMapping("/login")
+//    @PostMapping("/login")
     public String loginV3(
             @Valid @ModelAttribute LoginForm form,
             BindingResult bindingResult,
@@ -131,6 +132,36 @@ public class LoginController {
         //session.setMaxInactiveInterval(1800);
 
         return "redirect:/";
+    }
+
+    /**
+     * 인증 후 redirectURI를 포함하는 경우 직전 요청 페이지로 redirect 기능 추가
+     */
+    @PostMapping("/login")
+    public String loginV4(
+            @Valid @ModelAttribute LoginForm form,
+            BindingResult bindingResult,
+            @RequestParam(defaultValue = "/")String redirectURL,
+            HttpServletRequest request) {
+
+        if (bindingResult.hasErrors()) {
+            log.info("binding result = {}", bindingResult);
+            return "login/loginForm";
+        }
+
+        Member loginMember = memberService.login(form.getLoginId(), form.getPassword());
+
+        if (loginMember == null) {
+            bindingResult.reject("loginFail", "아이디 또는 패스워드가 일치하지 않습니다.");
+            return "login/loginForm";
+        }
+
+        HttpSession session = request.getSession();
+        session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
+
+        log.info("***********로그인 호출 [{}], [{}]", request.getRequestURI(), redirectURL);
+
+        return "redirect:" + redirectURL;
     }
 
     @PostMapping("/logout")
