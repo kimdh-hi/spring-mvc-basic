@@ -37,17 +37,32 @@ public class SessionManager {
      * 요청받은 쿠키에 저장된 난수를 세션map과 매핑하여 get
      */
     public Object getSession(HttpServletRequest request) {
-        Cookie cookie = findCookie(request, MY_SESSION_NAME);
-        if (cookie == null) return null;
-        return sessionMap.get(cookie.getValue());
+
+        if (request.getSession() == null) return null;
+
+        Cookie requestCookie = Arrays.stream(request.getCookies())
+                .filter(cookie -> cookie.getName().equals(MY_SESSION_NAME))
+                .findAny()
+                .orElse(null);
+        if (requestCookie == null) return null;
+        return sessionMap.get(requestCookie.getValue());
+
+
+//        Cookie cookie = findCookie(request, MY_SESSION_NAME);
+//        if (cookie == null) return null;
+//        return sessionMap.get(cookie.getValue());
     }
 
     /**
      * 세션 삭제 (만료)
      */
     public void expireCookie(HttpServletRequest request) {
-        Cookie cookie = findCookie(request, MY_SESSION_NAME);
-        if (cookie != null) sessionMap.remove(cookie.getValue());
+        Cookie requestCookie = Arrays.stream(request.getCookies())
+                .filter(cookie -> cookie.getName().equals(MY_SESSION_NAME))
+                .findAny()
+                .orElse(null);
+
+        if (requestCookie != null) sessionMap.remove(requestCookie.getValue());
     }
 
     private Cookie findCookie(HttpServletRequest request, String sessionName) {

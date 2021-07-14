@@ -12,12 +12,13 @@ public class ItemUpdateForm {
     @NotNull
     private Long id;
 
-    @NotBlank
+    @NotBlank(message="상품명을 입력하세요.")
     private String itemName;
 
     @NotNull
     @Range(min = 1000, max = 100000)
     private Integer price;
 
+    @Range(min = 100)
     private Integer quantity;
 }
