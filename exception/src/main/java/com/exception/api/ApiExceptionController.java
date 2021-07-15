@@ -23,6 +23,9 @@ public class ApiExceptionController {
         return new ErrorResult("BAD", e.getMessage());
     }
 
+    /**
+     * 리턴값으로 ResponseEntity를 사용
+     */
     @ExceptionHandler
     public ResponseEntity<ErrorResult> userExceptionHandler(UserException e) {
         log.info("[ExceptionHandler: UserExceptionHandler", e);
@@ -30,6 +33,10 @@ public class ApiExceptionController {
         return new ResponseEntity<ErrorResult>(errorResult, HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * Exception을 상속하는 자식 예외 클래스 (디테일한 예외 클래스)가 없다면 Exception클래스를 핸들링하는 아래 메서드가 호출
+     * @ExceptionHandler로 처리하지 않은 RunTImeException을 발생시키면 아래 메서드가 실행될 것임.
+     */
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler
     public ErrorResult exceptionHandler(Exception e) {
