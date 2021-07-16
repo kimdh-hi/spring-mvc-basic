@@ -1,6 +1,5 @@
 package hello.login;
 
-import hello.login.web.argumentresolver.Login;
 import hello.login.web.argumentresolver.LoginArgumentResolver;
 import hello.login.web.filter.LogFilter;
 import hello.login.web.filter.LoginCheckFilter;
