@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<!--
+    th:field 의 경우 타입 컨버터를 적용 -> 컨버전 서비스 적용
+    th:value 의 경우 타입 컨버터 적용 X
+
+    th:field의 경우 submit시 반대 타입 컨버터가 있다면 문자를 다시 객체로 변환까지 해줌
+-->
+<body>
+  <form th:object="${form}" th:action>
+    th:field사용: <input type="text" th:field="*{ipPort}"><br>
+    th:value사용: <input type="text" th:value="*{ipPort}">
+  </form>
+</body>
+</html>
