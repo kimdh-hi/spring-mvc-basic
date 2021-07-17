@@ -90,6 +90,17 @@ public class HomeController {
         return "loginHome";
     }
 
+    //    @GetMapping("/")
+    public String homeLogin(
+            @SessionAttribute(name="SESSION_KEY", required = false) Member member,
+            Model model) {
+
+        if (member == null) return "home";
+
+        model.addAttribute("member", member);
+        return "loginHome";
+    }
+
     /**
      * custom annotaion을 이용해 Argument resolver를 적용
      */
