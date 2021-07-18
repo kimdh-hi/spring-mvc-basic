@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.util.Locale;
 
 /**
+ * 동일한 타입 변환을 수행하는 컨버터가 있다면 컨버터가 우선적용 됨
  * (문자)1,000,000 -> (객체)1000000
  * (객체)1000000   -> (문자)1,000,000
  */
