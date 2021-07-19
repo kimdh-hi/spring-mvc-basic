@@ -19,7 +19,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(new LogInterceptor())
                 .order(1)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/css/**", "/error", "/error-page/**"); // error 컨트롤러를 막을수도 막지 않을수도 있음.
+                .excludePathPatterns("/css/**", "/error");
     }
 
     //    @Bean
@@ -31,8 +31,10 @@ public class WebConfig implements WebMvcConfigurer {
         // default: DispatcherType.REQUEST
         // ERROR설정시 에러가 WAS에 갔다가 다시 컨트롤러로 향할 때 필터도 거치게 됨
         // 보통은 디폴트값인 REQUEST만 필터를 거치도록
-        filterRegistrationBean.setDispatcherTypes(DispatcherType.REQUEST, DispatcherType.ERROR);
+        filterRegistrationBean.setDispatcherTypes(DispatcherType.REQUEST);
 
         return filterRegistrationBean;
     }
 }
+
+

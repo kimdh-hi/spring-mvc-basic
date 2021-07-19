@@ -47,13 +47,12 @@ public class ApiExceptionController {
 
     @GetMapping("/api/members/{memberId}")
     public String getMember(@PathVariable String memberId) {
-        if (memberId.equals("runtime"))
-            throw new RuntimeException("잘못된 사용자입니다.");
         if (memberId.equals("bad"))
             throw new IllegalArgumentException("잘못된 입력입니다.");
         if (memberId.equals("user-ex"))
             throw new UserException("사용자 오류입니다.");
-
+        if (memberId.equals("runtime"))
+            throw new RuntimeException("잘못된 사용자입니다.");
         return "ok";
     }
 }
