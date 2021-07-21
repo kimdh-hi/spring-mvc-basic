@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <title>Form Test</title>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="text-center py-5">
+        <h2>테스트 폼</h2>
+    </div>
+
+    <form th:action method="post">
+        <hr class="my-4">
+        <div>체크 박스 테스트</div>
+        <div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="checkbox">
+                <label for="checkbox" class="form-check-label">할꺼야 말꺼야</label>
+            </div>
+        </div>
+
+        <hr class="my-4">
+        <div>멀티 체크 박스 테스트</div>
+        <div>
+            <div th:each="data : ${multiData}" class="form-check form-check-inline">
+                <input type="checkbox" th:field="*{}"
+            </div>
+        </div>
+
+    </form>
+</div>
+</body>
+</html>
