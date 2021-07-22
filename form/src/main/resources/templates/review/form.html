@@ -36,6 +36,25 @@
             </div>
         </div>
 
+        <hr class="my-4">
+        <div>
+            <div>주력 프로그래밍 언어 선택 (한 개만 선택 가능)</div>
+            <div th:each="lang : ${language}" class="form-check form-check-inline">
+                <input type="radio" th:field="*{language}" th:value="${lang.name()}" class="form-check-input">
+                <label th:for="${#ids.prev('language')}" th:text="${lang.description}" class="form-check-label"></label>
+            </div>
+        </div>
+
+        <hr class="my-4">
+        <div>
+            <div>국가 선택</div>
+            <select th:field="*{country}" class="form-select">
+                <option value="">***** 국 가 를 선 택 하 세 요 *****</option>
+                <option th:each="c : ${country}" th:value="${c.name()}"
+                        th:text="${c.description}"></option>
+            </select>
+        </div>
+
 
         <button class="btn-primary" type="submit">전송</button>
     </form>

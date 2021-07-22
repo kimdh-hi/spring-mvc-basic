@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +34,17 @@ public class TestController {
         return map;
     }
 
+    @ModelAttribute("language")
+    private Language[] languages() {
+        return Language.values();
+    }
+
+    @ModelAttribute("country")
+    private Country[] countries() {
+        return Country.values();
+    }
+
+
     @PostMapping("/form")
     public String form(@ModelAttribute("form") FormDto formDto) {
         log.info("formDto.name = {}", formDto.getName());
@@ -41,7 +53,8 @@ public class TestController {
         for (String hobby : hobbies) {
             log.info("formDto.hobby = {}", hobby);
         }
-
+        log.info("formDto.language = {}", formDto.getLanguage());
+        log.info("formDto.country = {}", formDto.getCountry());
         return "review/form";
     }
 }
