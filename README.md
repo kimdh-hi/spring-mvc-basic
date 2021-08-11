@@ -1,6 +1,6 @@
 ## servlet부터 Spring MVC까지
 
-[참고 블로그](https://velog.io/@dhk22/series/Spring-MVC)
+[My 블로그](https://velog.io/@dhk22/series/Spring-MVC)
 
 ***
 
